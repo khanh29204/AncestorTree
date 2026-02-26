@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA extensions;
+SET search_path TO public, extensions;
 -- ═══════════════════════════════════════════════════════════════════════════
 -- Gia Phả Điện Tử - Database Setup
 -- Họ Đặng làng Kỷ Các

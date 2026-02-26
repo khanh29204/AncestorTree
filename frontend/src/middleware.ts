@@ -6,18 +6,31 @@
  * @updated 2026-02-26
  */
 
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-import { createServerClient } from '@supabase/ssr';
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { createServerClient } from "@supabase/ssr";
 
-const publicPaths = ['/login', '/register', '/forgot-password', '/reset-password'];
+const publicPaths = [
+  "/login",
+  "/register",
+  "/forgot-password",
+  "/reset-password",
+];
 // All main app routes require authentication to protect personal data.
 // Unauthenticated requests to these paths are redirected to /login.
 const authRequiredPaths = [
-  '/',
-  '/people', '/tree', '/directory', '/events',
-  '/achievements', '/charter', '/cau-duong', '/contributions',
-  '/documents', '/fund', '/admin',
+  "/",
+  "/people",
+  "/tree",
+  "/directory",
+  "/events",
+  "/achievements",
+  "/charter",
+  "/cau-duong",
+  "/contributions",
+  "/documents",
+  "/fund",
+  "/admin",
 ];
 
 export async function middleware(request: NextRequest) {
@@ -37,17 +50,17 @@ export async function middleware(request: NextRequest) {
         },
         setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value)
+            request.cookies.set(name, value),
           );
           response = NextResponse.next({
             request: { headers: request.headers },
           });
           cookiesToSet.forEach(({ name, value, options }) =>
-            response.cookies.set(name, value, options)
+            response.cookies.set(name, value, options),
           );
         },
       },
-    }
+    },
   );
 
   // getUser() can hang on Supabase free tier cold start.
@@ -56,8 +69,8 @@ export async function middleware(request: NextRequest) {
   let user: { id: string } | null = null;
   try {
     const result = await Promise.race([
-      supabase.auth.getUser().then(r => r.data.user),
-      new Promise<null>(resolve => setTimeout(() => resolve(null), 5000)),
+      supabase.auth.getUser().then((r) => r.data.user),
+      new Promise<null>((resolve) => setTimeout(() => resolve(null), 5000)),
     ]);
     user = result;
   } catch {
@@ -65,33 +78,37 @@ export async function middleware(request: NextRequest) {
   }
 
   // Redirect unauthenticated users from protected pages
-  if (!user && authRequiredPaths.some(path => pathname.startsWith(path))) {
-    const loginUrl = new URL('/login', request.url);
-    loginUrl.searchParams.set('redirect', pathname);
+  const isProtectedRoute = authRequiredPaths.some((path) =>
+    path === "/" ? pathname === "/" : pathname.startsWith(path),
+  );
+
+  if (!user && isProtectedRoute) {
+    const loginUrl = new URL("/login", request.url);
+    loginUrl.searchParams.set("redirect", pathname);
     return NextResponse.redirect(loginUrl);
   }
 
   // Admin routes require admin or editor role
-  if (user && pathname.startsWith('/admin')) {
+  if (user && pathname.startsWith("/admin")) {
     try {
       const { data: profile } = await supabase
-        .from('profiles')
-        .select('role')
-        .eq('user_id', user.id)
+        .from("profiles")
+        .select("role")
+        .eq("user_id", user.id)
         .single();
 
-      if (profile?.role !== 'admin' && profile?.role !== 'editor') {
-        return NextResponse.redirect(new URL('/', request.url));
+      if (profile?.role !== "admin" && profile?.role !== "editor") {
+        return NextResponse.redirect(new URL("/", request.url));
       }
     } catch {
       // On timeout/error, deny access to admin
-      return NextResponse.redirect(new URL('/', request.url));
+      return NextResponse.redirect(new URL("/", request.url));
     }
   }
 
   // Redirect authenticated users away from auth pages
-  if (user && publicPaths.some(path => pathname.startsWith(path))) {
-    return NextResponse.redirect(new URL('/', request.url));
+  if (user && publicPaths.some((path) => pathname.startsWith(path))) {
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   return response;
@@ -99,6 +116,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };
