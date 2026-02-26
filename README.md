@@ -1,37 +1,42 @@
 # AncestorTree
 
-> **Gia Pha Dien Tu - Họ Đặng làng Kỷ Các, Thach Lam, Ha Tinh**
+> **Gia Phả Điện Tử - Họ Đặng làng Kỷ Các, Thạch Lâm, Hà Tĩnh**
 
-Phan mem quan ly gia pha dien tu giup gin giu va truyen thua thong tin dong ho qua cac the he.
+Phần mềm quản lý gia phả điện tử giúp gìn giữ và truyền thừa thông tin dòng họ qua các thế hệ.
 
-*"Gin giu tinh hoa - Tiep buoc cha ong"*
+*"Gìn giữ tinh hoa - Tiếp bước cha ông"*
 
-## Tinh nang
+## Tính năng
 
 ### Core (v1.0)
-- **Cay gia pha truc quan** - So do pha he tuong tac, zoom, pan, collapse/expand, 10+ doi
-- **Quan ly thanh vien** - Ho so ca nhan chi tiet (30+ truong thong tin)
-- **Phan quyen 4 cap** - Admin, Editor, Viewer, Guest (Supabase RLS)
-- **Tim kiem** - Tra cuu nhanh theo ten, doi, chi nhanh
-- **Admin Panel** - Quan ly nguoi dung, du lieu
-- **Responsive** - Tuong thich mobile/tablet/desktop
+- **Cây gia phả trực quan** - Sơ đồ phả hệ tương tác, zoom, pan, collapse/expand, 10+ đời
+- **Quản lý thành viên** - Hồ sơ cá nhân chi tiết (30+ trường thông tin)
+- **Phân quyền 4 cấp** - Admin, Editor, Viewer, Guest (Supabase RLS)
+- **Tìm kiếm** - Tra cứu nhanh theo tên, đời, chi nhánh
+- **Admin Panel** - Quản lý người dùng, dữ liệu
+- **Responsive** - Tương thích mobile/tablet/desktop
 
-### Vietnamese Cultural (v1.1-v1.3)
-- **Lich am duong** - Chuyen doi chinh xac, hien thi ngay gio
-- **Chi/nhanh** - Quan ly theo cau truc dong ho Viet Nam
-- **Doi (Generation)** - Tinh tu dong theo pha he
-- **Can chi** - Giap Ty, At Suu, ...
-- **Vinh danh thanh tich** - Bang vinh danh thanh vien xuat sac (hoc tap, su nghiep, cong hien)
-- **Quy khuyen hoc** - Quan ly quy, hoc bong, khen thuong, theo doi thu chi
-- **Huong uoc gia toc** - Gia huan, quy uoc, loi dan con chau
-- **Thu muc thanh vien** - Danh ba lien lac voi quyen rieng tu
-- **Lich su kien** - Theo doi ngay gio, le tet
+### Vietnamese Cultural (v1.1–v1.3)
+- **Lịch âm dương** - Chuyển đổi chính xác, hiển thị ngày giỗ
+- **Chi/nhánh** - Quản lý theo cấu trúc dòng họ Việt Nam
+- **Đời (Generation)** - Tính tự động theo phả hệ
+- **Can chi** - Giáp Tý, Ất Sửu, ...
+- **Vinh danh thành tích** - Bảng vinh danh thành viên xuất sắc (học tập, sự nghiệp, cống hiến)
+- **Quỹ khuyến học** - Quản lý quỹ, học bổng, khen thưởng, theo dõi thu chi
+- **Hương ước gia tộc** - Gia huấn, quy ước, lời dặn con cháu
+- **Thư mục thành viên** - Danh bạ liên lạc với quyền riêng tư
+- **Lịch sự kiện** - Theo dõi ngày giỗ, lễ, tết
 
-### Ceremony & Relations (v1.4-v1.5)
-- **Cau duong** - Phan cong trach nhiem cau duong theo lich am (thuat toan DFS)
-- **Quan he gia dinh** - Hien thi bo/me/anh-chi-em/vo-chong/con theo giao dien truc quan
-- **Them thanh vien co quan he** - Chon bo/me khi tao moi, them con vao gia dinh
-- **Cay loc theo goc** - Hien thi cay gia pha bat dau tu bat ky thanh vien nao
+### Ceremony & Relations (v1.4–v1.5)
+- **Cầu đương** - Phân công trách nhiệm cầu đương theo lịch âm (thuật toán DFS)
+- **Quan hệ gia đình** - Hiển thị bố/mẹ/anh-chị-em/vợ-chồng/con theo giao diện trực quan
+- **Thêm thành viên có quan hệ** - Chọn bố/mẹ khi tạo mới, thêm con vào gia đình
+- **Cây lọc theo gốc** - Hiển thị cây gia phả bắt đầu từ bất kỳ thành viên nào
+
+### Local Development (v1.6)
+- **Chạy offline** - Supabase CLI + Docker, không cần tài khoản cloud
+- **Dữ liệu demo** - 18 thành viên 5 đời sẵn sàng sau `pnpm local:setup`
+- **Zero code change** - Cùng code base, chỉ khác env vars
 
 ## Tech Stack
 
@@ -42,7 +47,7 @@ Phan mem quan ly gia pha dien tu giup gin giu va truyen thua thong tin dong ho q
 | Database | Supabase (PostgreSQL, Auth, Storage, RLS) |
 | State | React Query (TanStack Query) |
 | Deployment | Vercel + Supabase Cloud |
-| Cost | **$0/thang** (100% free tier) |
+| Cost | **$0/tháng** (100% free tier) |
 
 ## Quick Start
 
@@ -94,14 +99,14 @@ AncestorTree/
 │   │   ├── app/                    # App router (route groups)
 │   │   │   ├── (auth)/             # Login, register
 │   │   │   └── (main)/             # Main app with sidebar
-│   │   │       ├── achievements/   # Vinh danh
-│   │   │       ├── charter/        # Huong uoc
-│   │   │       ├── contributions/  # Dong gop
-│   │   │       ├── directory/      # Thu muc thanh vien
-│   │   │       ├── events/         # Lich su kien
-│   │   │       ├── fund/           # Quy khuyen hoc
-│   │   │       ├── people/         # Quan ly thanh vien
-│   │   │       ├── tree/           # Cay gia pha
+│   │   │       ├── achievements/   # Vinh danh thành tích
+│   │   │       ├── charter/        # Hương ước
+│   │   │       ├── contributions/  # Đóng góp
+│   │   │       ├── directory/      # Thư mục thành viên
+│   │   │       ├── events/         # Lịch sự kiện
+│   │   │       ├── fund/           # Quỹ khuyến học
+│   │   │       ├── people/         # Quản lý thành viên
+│   │   │       ├── tree/           # Cây gia phả
 │   │   │       └── admin/          # Admin panel
 │   │   ├── components/             # React components
 │   │   │   ├── ui/                 # shadcn/ui
@@ -109,10 +114,15 @@ AncestorTree/
 │   │   ├── hooks/                  # Custom React hooks
 │   │   ├── lib/                    # Supabase client, data layer
 │   │   └── types/                  # TypeScript types
-│   └── supabase/                   # Database migrations
-│       ├── database-setup.sql      # Core tables (7)
-│       ├── sprint6-migration.sql   # v1.3 tables (4)
-│       └── cau-duong-migration.sql # v1.4 tables (2)
+│   └── supabase/                   # Supabase CLI
+│       ├── config.toml             # Cấu hình local (ports, auth, storage)
+│       ├── seed.sql                # Dữ liệu demo (18 thành viên)
+│       └── migrations/             # Migration files (theo thứ tự timestamp)
+│           ├── 20260224000000_database_setup.sql
+│           ├── 20260224000001_sprint6_migration.sql
+│           ├── 20260224000002_cau_duong_migration.sql
+│           ├── 20260224000003_sprint75_migration.sql
+│           └── 20260224000004_storage_setup.sql
 ├── .sdlc-config.json               # SDLC configuration
 ├── CLAUDE.md                       # AI assistant guidelines
 └── README.md
@@ -124,10 +134,10 @@ AncestorTree/
 
 | Layer | Tables | Description |
 |-------|--------|-------------|
-| Core Genealogy | `people`, `families`, `children` | Pha he, quan he gia dinh |
-| Platform | `profiles`, `contributions`, `media`, `events` | Tai khoan, dong gop, su kien |
-| Culture (v1.3) | `achievements`, `fund_transactions`, `scholarships`, `clan_articles` | Vinh danh, quy, huong uoc |
-| Ceremony (v1.4) | `cau_duong_pools`, `cau_duong_assignments` | Phan cong cau duong le tet |
+| Core Genealogy | `people`, `families`, `children` | Phả hệ, quan hệ gia đình |
+| Platform | `profiles`, `contributions`, `media`, `events` | Tài khoản, đóng góp, sự kiện |
+| Culture (v1.3) | `achievements`, `fund_transactions`, `scholarships`, `clan_articles` | Vinh danh, quỹ, hương ước |
+| Ceremony (v1.4) | `cau_duong_pools`, `cau_duong_assignments` | Phân công cầu đương lễ, tết |
 
 All tables have Row Level Security (RLS) policies with 4 roles.
 
@@ -140,7 +150,7 @@ Full SDLC documentation (9 docs, 141KB):
 | 00-Foundation | Vision, Problem Statement, Market Research, Business Case |
 | 01-Planning | BRD (77 FRs + 17 NFRs), Roadmap |
 | 02-Design | Technical Design (13 tables), UI/UX Design |
-| 04-Build | Sprint Plan (7.5 sprints) |
+| 04-Build | Sprint Plan (8 sprints, v1.6.0) |
 
 See [docs/README.md](./docs/README.md) for full documentation index.
 
@@ -151,11 +161,11 @@ v0.1.0 Alpha    [##########] Done - Infrastructure + Auth
 v1.0.0 MVP      [##########] Done - Tree + CRUD + Admin + Deploy
 v1.1.0 Enhanced [##########] Done - Directory + Calendar + Contributions
 v1.2.0 Release  [##########] Done - GEDCOM + Book Generator + Photos
-v1.3.0 Culture  [##########] Done - Vinh danh + Quy khuyen hoc + Huong uoc
-v1.4.0 Ceremony [##########] Done - Cau duong rotation + DFS algorithm
+v1.3.0 Culture  [##########] Done - Vinh danh + Quỹ khuyến học + Hương ước
+v1.4.0 Ceremony [##########] Done - Cầu đương rotation + DFS algorithm
 v1.5.0 Relations[##########] Done - Family relations UX + tree filter by root
-v1.6.0 LocalDev [#########-] In Progress - Supabase CLI + Docker local mode
-v2.0.0 Community [----------] Future - Nha tho ho, Notifications, Cross-clan
+v1.6.0 LocalDev [##########] Done - Supabase CLI + Docker local mode
+v2.0.0 Community [----------] Future - Nhà thờ họ, Notifications, Cross-clan
 ```
 
 ## For Your Own Clan
