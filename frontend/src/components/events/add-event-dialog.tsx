@@ -127,11 +127,18 @@ export function AddEventDialog({ people, onClose }: AddEventDialogProps) {
               <SelectValue placeholder="Chọn thành viên..." />
             </SelectTrigger>
             <SelectContent>
-              {people
-                .filter(p => !p.is_living)
+              {[...people]
+                .sort((a, b) => {
+                  // Deceased first, then alphabetical
+                  if (!a.is_living && b.is_living) return -1;
+                  if (a.is_living && !b.is_living) return 1;
+                  return (a.display_name || '').localeCompare(b.display_name || '', 'vi');
+                })
                 .map(p => (
                   <SelectItem key={p.id} value={p.id}>
-                    {p.display_name} {p.death_lunar ? `(${p.death_lunar} ÂL)` : ''}
+                    {p.display_name}
+                    {p.death_lunar ? ` (${p.death_lunar} ÂL)` : ''}
+                    {p.is_living ? ' (còn sống)' : ''}
                   </SelectItem>
                 ))}
             </SelectContent>
